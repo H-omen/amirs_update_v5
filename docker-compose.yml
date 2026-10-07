@@ -1,0 +1,13 @@
+services:
+  amirs:
+    build: .
+    image: amirs-versions:latest
+    container_name: amirs-versions
+    ports:
+      - "${AMIRS_PORT:-8000}:8000"
+    volumes:
+      # SQLite и логи остаются на хосте — не теряются при обновлении контейнера
+      - ./backend/data:/app/backend/data
+    restart: unless-stopped
+    environment:
+      - TZ=Europe/Moscow
